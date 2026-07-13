@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crashing-app
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: crashing-app
+  template:
+    metadata:
+      labels:
+        app: crashing-app
+      annotations:
+        self-healing: "enabled" # The controller looks for this annotation
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        # This script intentionally causes an OutOfMemoryError simulation to trigger the remediation logic
+        command: ["/bin/sh", "-c"]
+        args:
+          - "echo 'Starting application...'; sleep 10; echo 'java.lang.OutOfMemoryError: Java heap space'; exit 1"
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "64Mi" # Purposely small memory limit
+            cpu: "100m"

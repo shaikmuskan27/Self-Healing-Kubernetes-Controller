@@ -1,0 +1,4 @@
+kopf==1.36.1
+kubernetes==31.0.0
+PyGithub==2.3.0
+requests==2.31.0

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: self-healing-controller
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: self-healing-controller
+  template:
+    metadata:
+      labels:
+        app: self-healing-controller
+    spec:
+      serviceAccountName: self-healing-controller
+      containers:
+        - name: controller
+          image: self-healing-controller:latest
+          imagePullPolicy: Never # If using kind/minikube locally
+          env:
+            - name: GITHUB_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: self-healing-secrets
+                  key: github_token
+                  optional: true
+            - name: SLACK_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: self-healing-secrets
+                  key: slack_webhook_url
+                  optional: true
+            - name: DRY_RUN
+              value: "true"

@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: self-healing-controller
+  namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: self-healing-controller-role
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "pods/log", "events"]
+    verbs: ["get", "watch", "list", "delete"]
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["get", "watch", "list", "patch"]
+  - apiGroups: ["kopf.dev"]
+    resources: ["kopfpeerings", "clusterkopfpeerings"]
+    verbs: ["get", "watch", "list", "create", "patch", "update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: self-healing-controller-rolebinding
+subjects:
+  - kind: ServiceAccount
+    name: self-healing-controller
+    namespace: default
+roleRef:
+  kind: ClusterRole
+  name: self-healing-controller-role
+  apiGroup: rbac.authorization.k8s.io
