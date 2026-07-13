@@ -1,11 +1,15 @@
 import kopf
 import logging
+import os
+import requests
 from .k8s_client import get_pod_logs, delete_pod
 from .remediation import diagnose_logs
 from .github_integration import create_remediation_pr
 from .notifications import send_slack_notification
 
 logger = logging.getLogger(__name__)
+
+BACKEND_URL = os.getenv("BACKEND_URL", "http://self-healing-backend:8000")
 
 # We track processed pods to avoid loop storms
 PROCESSED_PODS = set()
@@ -68,3 +72,17 @@ def handle_pod_events(event, **kwargs):
             
         # 3. Notification Phase
         send_slack_notification(name, reason, fix, pr_url)
+        
+        # 4. Dashboard API Integration
+        try:
+            payload = {
+                "app_name": name,
+                "diagnostic": reason,
+                "proposed_fix": fix,
+                "pr_url": pr_url,
+                "status": "Resolved"
+            }
+            requests.post(f"{BACKEND_URL}/api/incidents", json=payload, timeout=5)
+            logger.info("Successfully pushed incident to Dashboard API.")
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Failed to push incident to Dashboard API: {e}")

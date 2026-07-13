@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self-Healing Kubernetes Controller</title>
+    <meta name="description" content="An autonomous Kubernetes operator that detects failures, diagnoses logs, and applies automated GitOps remediation.">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="glass-nav">
+        <div class="nav-content">
+            <div class="logo">K8s Healer</div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#architecture">Architecture</a>
+                <a href="#dashboard">Dashboard</a>
+                <a href="https://github.com/shaikmuskan27/Self-Healing-Kubernetes-Controller" class="btn-primary-small" target="_blank">View GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" id="home">
+        <div class="hero-bg">
+            <div class="glow-orb blue"></div>
+            <div class="glow-orb purple"></div>
+        </div>
+        <div class="hero-content">
+            <div class="badge">Cloud-Native Infrastructure</div>
+            <h1 class="fade-in-up">Autonomous <span class="gradient-text">Self-Healing</span> Kubernetes Controller</h1>
+            <p class="fade-in-up delay-1">A custom Python Operator that detects Pod failures, analyzes logs using an intelligent diagnostic engine, and applies automated remediation via GitOps pull requests.</p>
+            <div class="hero-actions fade-in-up delay-2">
+                <a href="#architecture" class="btn-secondary">Explore Architecture</a>
+                <a href="https://github.com/shaikmuskan27/Self-Healing-Kubernetes-Controller" class="btn-primary" target="_blank">
+                    <svg height="24" width="24" viewBox="0 0 16 16" fill="white"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                    Source Code
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Architecture Section -->
+    <section class="architecture" id="architecture">
+        <div class="section-container">
+            <h2>The <span class="gradient-text">Workflow</span></h2>
+            <p class="subtitle">From failure detection to fully automated GitOps remediation.</p>
+            
+            <div class="workflow-grid">
+                <div class="step-card glass-panel reveal">
+                    <div class="step-number">01</div>
+                    <h3>Detection</h3>
+                    <p>Controller listens to the K8s API for Pods entering <code>CrashLoopBackOff</code> or <code>Error</code> states.</p>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step-card glass-panel reveal">
+                    <div class="step-number">02</div>
+                    <h3>Diagnostics</h3>
+                    <p>Fetches and parses the last 50 lines of container logs to identify the root cause (e.g., OOMKilled).</p>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step-card glass-panel reveal">
+                    <div class="step-number">03</div>
+                    <h3>GitOps Remediation</h3>
+                    <p>Leverages GitHub API to dynamically patch deployment limits and open an Auto-Fix Pull Request.</p>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step-card glass-panel reveal">
+                    <div class="step-number">04</div>
+                    <h3>Notification</h3>
+                    <p>Fires a rich, interactive Slack/Teams webhook detailing the incident and linking the PR.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-container">
+            <h2>Core Capabilities</h2>
+            <div class="feature-grid">
+                <div class="feature-box reveal">
+                    <div class="icon">🐍</div>
+                    <h3>Kopf Framework</h3>
+                    <p>Built using the Kubernetes Operator Pythonic Framework for rapid, robust, and readable event handling.</p>
+                </div>
+                <div class="feature-box reveal">
+                    <div class="icon">🐙</div>
+                    <h3>GitHub Automation</h3>
+                    <p>Adheres strictly to GitOps principles by ensuring the cluster state remains synchronized with the Git source of truth.</p>
+                </div>
+                <div class="feature-box reveal">
+                    <div class="icon">📊</div>
+                    <h3>Full-Stack Dashboard</h3>
+                    <p>Includes a custom FastAPI + React-style dashboard for real-time telemetry and incident auditing.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Mockup Section -->
+    <section class="dashboard-preview" id="dashboard">
+        <div class="section-container">
+            <div class="preview-content reveal">
+                <div class="text-side">
+                    <h2>Real-Time <span class="gradient-text">Observability</span></h2>
+                    <p>The companion telemetry dashboard provides instant visibility into the self-healing actions taken by the controller.</p>
+                    <ul>
+                        <li>✔ SQLite persistence for audit trails</li>
+                        <li>✔ Live incident feed</li>
+                        <li>✔ Lightweight HTML/CSS/JS frontend</li>
+                    </ul>
+                </div>
+                <div class="image-side">
+                    <!-- A stylized representation of the dashboard -->
+                    <div class="mock-browser glass-panel">
+                        <div class="browser-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <div class="browser-body">
+                            <div class="mock-feed">
+                                <div class="mock-item">
+                                    <div class="mock-text">
+                                        <strong>crashing-app</strong>
+                                        <small>OutOfMemoryError Detected</small>
+                                    </div>
+                                    <div class="mock-badge">Resolved</div>
+                                </div>
+                                <div class="mock-item">
+                                    <div class="mock-text">
+                                        <strong>database-pod</strong>
+                                        <small>Connection Refused</small>
+                                    </div>
+                                    <div class="mock-badge">Resolved</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>Designed and built for Cloud Tech Support showcasing.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

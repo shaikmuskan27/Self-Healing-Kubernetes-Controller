@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: self-healing-dashboard
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: self-healing-dashboard
+  template:
+    metadata:
+      labels:
+        app: self-healing-dashboard
+    spec:
+      containers:
+        - name: backend
+          image: self-healing-dashboard:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - name: db-volume
+              mountPath: /app/data
+          env:
+            - name: DB_PATH
+              value: "/app/data/incidents.db"
+      volumes:
+        - name: db-volume
+          emptyDir: {} # For demo purposes. Use PersistentVolumeClaim in production.
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: self-healing-backend
+  namespace: default
+spec:
+  selector:
+    app: self-healing-dashboard
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+  type: NodePort # Easier to access locally

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self-Healing K8s Controller Dashboard</title>
+    <meta name="description" content="Dashboard for observing automated Kubernetes remediation and GitOps workflows.">
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="glass-panel">
+            <div class="logo">
+                <div class="pulse-ring"></div>
+                <h1>Self-Healing Controller</h1>
+            </div>
+            <div class="status-indicator">
+                <span class="dot healthy"></span>
+                <span>System Active</span>
+            </div>
+        </header>
+
+        <main>
+            <section class="metrics-grid">
+                <div class="metric-card glass-panel">
+                    <h3>Total Incidents Resolved</h3>
+                    <div class="metric-value" id="total-incidents">0</div>
+                </div>
+                <div class="metric-card glass-panel">
+                    <h3>Active Pull Requests</h3>
+                    <div class="metric-value" id="active-prs">0</div>
+                </div>
+                <div class="metric-card glass-panel">
+                    <h3>Uptime Preserved</h3>
+                    <div class="metric-value">99.9%</div>
+                </div>
+            </section>
+
+            <section class="incident-feed-section">
+                <h2>Recent Automated Fixes</h2>
+                <div class="incident-feed glass-panel" id="incident-feed">
+                    <!-- Incidents injected via JS -->
+                    <div class="loading">Loading telemetry...</div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
